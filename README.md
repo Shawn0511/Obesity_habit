@@ -80,10 +80,12 @@ This analysis demonstrates that behavioural, demographic, and anthropometric dat
 
 ## Project Structure
 
-├── data/ # Cleaned dataset
-├── scripts/ # PySpark pipelines and modeling scripts
-├── output/ # Model artefacts and visualisations
-├── report/ # Final report (PDF/Markdown)
+```
+├── Data/ # Cleaned dataset
+├── Scripts/ # PySpark pipelines and modeling scripts
+├── Output_figure/ # Model artefacts and visualisations
+├── Report/ # Final report (PDF/Markdown)
 └── README.md # Project overview
+```
 
 ---
