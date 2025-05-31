@@ -11,7 +11,7 @@ import numpy as np
 from scipy.stats import chi2_contingency, f_oneway
 
 # Load and clean data
-pdf = pd.read_csv("Data/ObesityDataSet_raw_and_data_sinthetic.csv")
+pdf = pd.read_csv("../Data/ObesityDataSet_raw_and_data_sinthetic.csv")
 pdf = pdf.dropna()
 pdf.columns = pdf.columns.str.strip()
 

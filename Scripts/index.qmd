@@ -12,17 +12,17 @@ theme: cosmo
 
 This project explores a dataset on eating habits and physical condition among adults in Latin America to predict obesity levels. We apply data exploration techniques, hypothesis testing (Cramér’s V, ANOVA), and train several classification models (Logistic Regression, Random Forest, Decision Tree).
 
----
+------------------------------------------------------------------------
 
 ### Dataset
 
-- **File**: `ObesityDataSet_raw_and_data_sinthetic.csv`
-- **Source**: UCI Machine Learning Repository
+-   **File**: `ObesityDataSet_raw_and_data_sinthetic.csv`
+-   **Source**: UCI Machine Learning Repository
 
----
+------------------------------------------------------------------------
 
 ### Methodology
 
-1. Clean and preprocess the data
-2. Perform exploratory analysis (categorical and numerical relationships)
-3. Train and evaluate multiple classifiers
+1.  Clean and preprocess the data
+2.  Perform exploratory analysis (categorical and numerical relationships)
+3.  Train and evaluate multiple classifiers
