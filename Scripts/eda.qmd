@@ -21,3 +21,40 @@ sns.barplot(x=class_counts.index, y=class_counts.values)
 plt.xticks(rotation=45)
 plt.title("Class Distribution")
 plt.show()
+```
+
+
+Cramér's V Analysis
+
+
+
+```{python}
+def cramers_v(confusion_matrix):
+    chi2 = chi2_contingency(confusion_matrix)[0]
+    n = confusion_matrix.sum()
+    phi2 = chi2 / n
+    r, k = confusion_matrix.shape
+    phi2corr = max(0, phi2 - (k-1)*(r-1)/(n-1))
+    rcorr = r - (r-1)**2/(n-1)
+    kcorr = k - (k-1)**2/(n-1)
+    return np.sqrt(phi2corr / min((kcorr-1), (rcorr-1)))
+
+categorical_cols = ["Gender", "family_history_with_overweight", "FAVC", "CAEC", "SMOKE", "SCC", "CALC", "MTRANS"]
+
+for col in categorical_cols:
+    if col == "NObeyesdad": continue
+    table = pd.crosstab(pdf[col], pdf["NObeyesdad"])
+    print(f"Cramér’s V between {col} and NObeyesdad: {cramers_v(table.values):.3f}")
+
+
+```
+
+
+```{python}
+numeric_cols = ["Age", "Height", "Weight", "FCVC", "NCP", "CH2O", "FAF", "TUE"]
+
+for col in numeric_cols:
+    groups = [group[col].values for _, group in pdf.groupby("NObeyesdad")]
+    f_stat, p_val = f_oneway(*groups)
+    print(f"ANOVA for {col}: F={f_stat:.2f}, p={p_val:.2e}")
+```
