@@ -14,8 +14,12 @@ from scipy.stats import chi2_contingency, f_oneway
 pdf = pd.read_csv("../Data/ObesityDataSet_raw_and_data_sinthetic.csv")
 pdf = pdf.dropna()
 pdf.columns = pdf.columns.str.strip()
+```
 
-# Class distribution
+
+## Class distribution
+
+```{python}
 class_counts = pdf['NObeyesdad'].value_counts()
 sns.barplot(x=class_counts.index, y=class_counts.values)
 plt.xticks(rotation=45)
@@ -24,9 +28,8 @@ plt.show()
 ```
 
 
-Cramér's V Analysis
 
-
+## Cramér's V Analysis (Categorical)
 
 ```{python}
 def cramers_v(confusion_matrix):
@@ -49,7 +52,7 @@ for col in categorical_cols:
 
 ```
 
-
+## ANOVA (Numerical)
 ```{python}
 numeric_cols = ["Age", "Height", "Weight", "FCVC", "NCP", "CH2O", "FAF", "TUE"]
 

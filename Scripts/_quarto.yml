@@ -1,0 +1,28 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Obesity Level Analysis Report"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "EDA"
+        file: eda.qmd
+      - text: "Modeling"
+        file: modeling.qmd
+      - text: "Evaluation"
+        file: evaluation.qmd
+
+format:
+  html:
+    theme: cosmo 
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: true
+    code-summary: "Show Code"
+    fig-cap-location: top
+    fig-align: center
+    css: styles.css
