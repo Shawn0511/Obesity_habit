@@ -1,0 +1,23 @@
+---
+title: "Exploratory Data Analysis"
+format: html
+---
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from scipy.stats import chi2_contingency, f_oneway
+
+# Load and clean data
+pdf = pd.read_csv("Data/ObesityDataSet_raw_and_data_sinthetic.csv")
+pdf = pdf.dropna()
+pdf.columns = pdf.columns.str.strip()
+
+# Class distribution
+class_counts = pdf['NObeyesdad'].value_counts()
+sns.barplot(x=class_counts.index, y=class_counts.values)
+plt.xticks(rotation=45)
+plt.title("Class Distribution")
+plt.show()
