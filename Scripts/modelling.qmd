@@ -1,0 +1,70 @@
+---
+title: "Model Training"
+format: html
+---
+
+```{python}
+# Load libraries
+import pandas as pd
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.preprocessing import LabelEncoder, StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+
+# Encode and split
+df = pdf.copy()
+X = df.drop(columns=["NObeyesdad"])
+y = df["NObeyesdad"]
+
+
+numeric_cols = ["Age", "Height", "Weight", "FCVC", "NCP", "CH2O", "FAF", "TUE"]
+categorical_cols = ["Gender", "family_history_with_overweight", "FAVC", "CAEC", 
+                    "SMOKE", "SCC", "CALC", "MTRANS"]
+
+# Encode label
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y)
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, test_size=0.2, random_state=42)
+
+# Define preprocessing
+preprocessor = ColumnTransformer([
+    ("num", StandardScaler(), numeric_cols),
+    ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_cols)
+])
+```
+
+
+## Define models and tuning: Logistic Regression (LR); Random Forest(RF); Decision Tree(DT)
+
+```{python}
+# Define models
+models = {
+    "Logistic Regression": LogisticRegression(max_iter=1000, multi_class="multinomial"),
+    "Random Forest": RandomForestClassifier(),
+    "Decision Tree": DecisionTreeClassifier()
+}
+
+# Define hyperparameter grids
+params = {
+    "Logistic Regression": {"model__C": [0.1, 1, 10]},
+    "Random Forest": {"model__n_estimators": [100, 200], "model__max_depth": [5, 10]},
+    "Decision Tree": {"model__max_depth": [3, 5, 7]}
+}
+
+# Perform grid search for each model
+grids = {}
+for name in models:
+    pipe = Pipeline(steps=[
+        ("preprocessor", preprocessor),
+        ("model", models[name])
+    ])
+    grid = GridSearchCV(pipe, param_grid=params[name], cv=5, scoring="accuracy", n_jobs=-1)
+    grid.fit(X_train, y_train)
+    grids[name] = grid
+    print(f"{name} best parameters: {grid.best_params_}")
+```
