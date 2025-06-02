@@ -5,10 +5,18 @@ format: html
 
 ```{python}
 import pandas as pd
+import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 from scipy.stats import chi2_contingency, f_oneway
+
+# Reload the models
+grids = {
+    "Logistic Regression": joblib.load("../Models/Logistic_Regression_model.pkl"),
+    "Random Forest": joblib.load("../Models/Random_Forest_model.pkl"),
+    "Decision Tree": joblib.load("../Models/Decision_Tree_model.pkl")
+}
 
 # Load and clean data
 pdf = pd.read_csv("../Data/ObesityDataSet_raw_and_data_sinthetic.csv")
@@ -76,4 +84,12 @@ sns.heatmap(pdf[numeric_cols].corr(), annot=True, cmap="coolwarm")
 plt.title("Correlation Heatmap (Numerical Features)")
 plt.tight_layout()
 plt.show()
+```
+
+
+
+```{python}
+# Save it as preprocessed data
+pdf.to_csv("../Data/cleaned_obesity.csv", index=False)
+
 ```
