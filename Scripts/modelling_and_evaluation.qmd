@@ -65,7 +65,7 @@ for name in models:
         ("preprocessor", preprocessor),
         ("model", models[name])
     ])
-    grid = GridSearchCV(pipe, param_grid=params[name], cv=5, scoring="accuracy", n_jobs=-1)
+    grid = GridSearchCV(pipe, param_grid=params[name], cv=5, scoring="accuracy", n_jobs=1)
     grid.fit(X_train, y_train)
     grids[name] = grid
     print(f"{name} best parameters: {grid.best_params_}")
