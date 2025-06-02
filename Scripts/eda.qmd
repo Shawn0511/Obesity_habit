@@ -11,13 +11,6 @@ import seaborn as sns
 import numpy as np
 from scipy.stats import chi2_contingency, f_oneway
 
-# Reload the models
-grids = {
-    "Logistic Regression": joblib.load("../Models/Logistic_Regression_model.pkl"),
-    "Random Forest": joblib.load("../Models/Random_Forest_model.pkl"),
-    "Decision Tree": joblib.load("../Models/Decision_Tree_model.pkl")
-}
-
 # Load and clean data
 pdf = pd.read_csv("../Data/ObesityDataSet_raw_and_data_sinthetic.csv")
 pdf = pdf.dropna()
