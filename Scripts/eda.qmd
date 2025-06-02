@@ -61,3 +61,19 @@ for col in numeric_cols:
     f_stat, p_val = f_oneway(*groups)
     print(f"ANOVA for {col}: F={f_stat:.2f}, p={p_val:.2e}")
 ```
+
+## Visual EDA
+```{python}
+# boxplot
+sns.boxplot(x="NObeyesdad", y="Weight", data=pdf)
+plt.xticks(rotation=45)
+plt.title("Weight by Obesity Class")
+plt.tight_layout()
+plt.show()
+
+# heatmap plot
+sns.heatmap(pdf[numeric_cols].corr(), annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap (Numerical Features)")
+plt.tight_layout()
+plt.show()
+```

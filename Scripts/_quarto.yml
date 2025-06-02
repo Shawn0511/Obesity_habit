@@ -9,11 +9,11 @@ website:
     search: true
     left:
       - text: "EDA"
-        file: eda.qmd
-      - text: "Modeling"
-        file: modeling.qmd
+        file: Scripts/eda.qmd
+      - text: "Modelling"
+        file: Scripts/modelling.qmd
       - text: "Evaluation"
-        file: evaluation.qmd
+        file: Scripts/evaluation.qmd
 
 format:
   html:
@@ -22,6 +22,7 @@ format:
     toc-depth: 2
     number-sections: true
     code-fold: true
+    code-tools: true
     code-summary: "Show Code"
     fig-cap-location: top
     fig-align: center

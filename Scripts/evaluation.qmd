@@ -6,22 +6,36 @@ format: html
 ## Evaluation
 
 ```{python}
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+# Load libraries
+from sklearn.metrics import classification_report, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
 # Evaluate models
-models = {
-    "Logistic Regression": lr_grid.best_estimator_,
-    # add rf_grid.best_estimator_ and dt_grid.best_estimator_ if used
-}
-
-for name, model in models.items():
-    y_pred = model.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average="macro")
-    print(f"{name} Accuracy: {acc:.4f}")
-    print(f"{name} F1 Score: {f1:.4f}")
-    ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
-    plt.title(name)
+for name, grid in grids.items():
+    y_pred = grid.predict(X_test)
+    print(f"--- {name} ---")
+    print(classification_report(y_test, y_pred))
+    
+    cm = confusion_matrix(y_test, y_pred, labels=grid.classes_)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=grid.classes_, yticklabels=grid.classes_)
+    plt.title(f"{name} Confusion Matrix")
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
     plt.tight_layout()
     plt.show()
+
+
+# Feature importances (Random Forest)
+rf = grids["Random Forest"].best_estimator_
+importances = rf.named_steps["model"].feature_importances_
+feature_names = rf.named_steps["preprocessor"].get_feature_names_out()
+fi_df = pd.DataFrame({"Feature": feature_names, "Importance": importances}).sort_values("Importance", ascending=False)
+
+sns.barplot(data=fi_df.head(15), x="Importance", y="Feature")
+plt.title("Top Feature Importances (Random Forest)")
+plt.tight_layout()
+plt.show()
 ```
